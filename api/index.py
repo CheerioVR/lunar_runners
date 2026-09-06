@@ -25,21 +25,6 @@ META_ACCESS_TOKEN = "OC|1262483513615215|4b731bfc16926703cec22d9c8313c830"
 EVENT_LOG_DIR = "/tmp/eventlogs"
 LOG_DIR = "/tmp/logs"
 SQLITE_DB_PATH = "/tmp/mothership.db"
-# ─── CRYPTOGRAPHIC KEYS SETUP (ECDSA ES256) ──────────────────────────────────
-# Load ES256 keys. If missing in env, dynamically generate standard keys for runtime fallback.
-private_key_pem = os.environ.get("MOTHERSHIP_PRIVATE_KEY")
-if private_key_pem:
-    private_key = serialization.load_pem_private_key(
-        private_key_pem.encode('utf-8'),
-        password=None
-    )
-else:
-    private_key = rsa.generate_private_key(
-        public_exponent=65537,
-        key_size=2048
-    )
-
-public_key = private_key.public_key()
 
 # ─── LOCAL IN-MEMORY STORES ──────────────────────────────────────────────────
 pending_nonces = {}
